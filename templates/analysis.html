@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %}DataScience App - Analysis{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5">Data Analysis</h1>
+        <p class="lead">Analyze your data with statistical methods and correlation analysis</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Analysis</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Dataset Overview</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-file me-2"></i>Filename:</h6>
+                        <p class="lead">{{ filename }}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="fas fa-table-cells me-2"></i>Columns:</h6>
+                        <p class="lead">{{ columns|length }}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="fas fa-list-ol me-2"></i>Rows:</h6>
+                        <p class="lead">{{ row_count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <ul class="nav nav-tabs" id="analysisTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary-tab-pane" type="button" role="tab" aria-controls="summary-tab-pane" aria-selected="true">
+                    <i class="fas fa-calculator me-1"></i> Summary Statistics
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="missing-tab" data-bs-toggle="tab" data-bs-target="#missing-tab-pane" type="button" role="tab" aria-controls="missing-tab-pane" aria-selected="false">
+                    <i class="fas fa-search-minus me-1"></i> Missing Values
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="datatypes-tab" data-bs-toggle="tab" data-bs-target="#datatypes-tab-pane" type="button" role="tab" aria-controls="datatypes-tab-pane" aria-selected="false">
+                    <i class="fas fa-code me-1"></i> Data Types
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="correlation-tab" data-bs-toggle="tab" data-bs-target="#correlation-tab-pane" type="button" role="tab" aria-controls="correlation-tab-pane" aria-selected="false">
+                    <i class="fas fa-project-diagram me-1"></i> Correlation Analysis
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content p-3 border border-top-0 rounded-bottom" id="analysisTabContent">
+            <div class="tab-pane fade show active" id="summary-tab-pane" role="tabpanel" aria-labelledby="summary-tab" tabindex="0">
+                <h4 class="mb-3">Summary Statistics</h4>
+                <p>Statistical summary of numeric columns in your dataset.</p>
+                <div id="summary-stats-container">
+                    <div class="d-flex justify-content-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="missing-tab-pane" role="tabpanel" aria-labelledby="missing-tab" tabindex="0">
+                <h4 class="mb-3">Missing Values Analysis</h4>
+                <p>Examination of missing values in your dataset.</p>
+                <div id="missing-values-container">
+                    <div class="d-flex justify-content-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="datatypes-tab-pane" role="tabpanel" aria-labelledby="datatypes-tab" tabindex="0">
+                <h4 class="mb-3">Data Types</h4>
+                <p>Analysis of data types in your dataset.</p>
+                <div id="data-types-container">
+                    <div class="d-flex justify-content-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="correlation-tab-pane" role="tabpanel" aria-labelledby="correlation-tab" tabindex="0">
+                <h4 class="mb-3">Correlation Analysis</h4>
+                <p>Identification of relationships between numeric variables in your dataset.</p>
+                <div id="correlation-container">
+                    <div class="d-flex justify-content-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Data Preview</h5>
+            </div>
+            <div class="card-body">
+                <div id="data-table-container" class="table-responsive">
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading data preview...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Export Options</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-success export-btn" data-format="csv">
+                        <i class="fas fa-file-csv me-2"></i>Export Data as CSV
+                    </button>
+                    <button class="btn btn-outline-info export-btn" data-format="excel">
+                        <i class="fas fa-file-excel me-2"></i>Export Data as Excel
+                    </button>
+                    <button class="btn btn-outline-warning export-btn" data-format="json">
+                        <i class="fas fa-file-code me-2"></i>Export Data as JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+{% endblock %}

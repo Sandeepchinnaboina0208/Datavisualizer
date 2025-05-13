@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %}DataScience App - Visualization{% endblock %}
+
+{% block extra_head %}
+<style>
+    #chart-container {
+        min-height: 500px;
+        width: 100%;
+        position: relative;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5">Data Visualization</h1>
+        <p class="lead">Create interactive charts to visualize patterns and relationships in your data</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Visualization</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Chart Controls</h5>
+            </div>
+            <div class="card-body">
+                <form id="chart-form">
+                    <div class="mb-3">
+                        <label for="chart-type" class="form-label">Chart Type</label>
+                        <select class="form-select" id="chart-type">
+                            <option value="bar">Bar Chart</option>
+                            <option value="line">Line Chart</option>
+                            <option value="pie">Pie Chart</option>
+                            <option value="scatter">Scatter Plot</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="x-column" class="form-label">X-Axis Column</label>
+                        <select class="form-select" id="x-column">
+                            <option value="">Select Column</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3" id="y-columns-group">
+                        <label for="y-columns" class="form-label">Y-Axis Column(s)</label>
+                        <select class="form-select" id="y-columns" multiple>
+                            <option value="">Select Column(s)</option>
+                        </select>
+                        <div class="form-text">Hold Ctrl/Cmd to select multiple columns</div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary w-100" id="generate-chart">
+                        <i class="fas fa-chart-bar me-2"></i>Generate Chart
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                    Filters
+                    <button type="button" class="btn btn-sm btn-light" id="add-filter">
+                        <i class="fas fa-plus"></i> Add Filter
+                    </button>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="filters-container">
+                    <!-- Filter rows will be added here -->
+                </div>
+                <div class="form-text mt-2">Add filters to refine your visualization</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Chart Visualization</h5>
+            </div>
+            <div class="card-body">
+                <div id="chart-container" class="d-flex align-items-center justify-content-center">
+                    <div class="text-center text-muted p-5">
+                        <i class="fas fa-chart-bar fa-4x mb-3"></i>
+                        <h5>Select chart options and click "Generate Chart" to begin</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Data Preview</h5>
+            </div>
+            <div class="card-body">
+                <div id="data-table-container" class="table-responsive">
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading data preview...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Export Options</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary export-chart" data-format="png">
+                        <i class="fas fa-file-image me-2"></i>Save Chart as PNG
+                    </button>
+                    <button class="btn btn-outline-success export-btn" data-format="csv">
+                        <i class="fas fa-file-csv me-2"></i>Export Data as CSV
+                    </button>
+                    <button class="btn btn-outline-info export-btn" data-format="excel">
+                        <i class="fas fa-file-excel me-2"></i>Export Data as Excel
+                    </button>
+                    <button class="btn btn-outline-warning export-btn" data-format="json">
+                        <i class="fas fa-file-code me-2"></i>Export Data as JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle chart export buttons
+    document.querySelectorAll('.export-chart').forEach(button => {
+        button.addEventListener('click', function() {
+            const chartCanvas = document.getElementById('chart-canvas');
+            if (chartCanvas) {
+                // Create a temporary link for downloading
+                const link = document.createElement('a');
+                link.download = 'chart-export.png';
+                link.href = chartCanvas.toDataURL('image/png');
+                link.click();
+            } else {
+                showAlert('Please generate a chart first', 'warning');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

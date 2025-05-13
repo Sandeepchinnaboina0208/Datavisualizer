@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}DataScience App - Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Welcome to DataScience App</h1>
+            <p class="lead">Upload your data and gain valuable insights through powerful analysis and visualizations</p>
+        </div>
+        
+        <div class="upload-section">
+            <h2 class="mb-4 text-center">Upload Your Data</h2>
+            <div class="file-upload-wrapper">
+                <form id="upload-form" enctype="multipart/form-data">
+                    <div class="card mb-3">
+                        <div class="card-body text-center py-5">
+                            <i class="fas fa-file-upload fa-3x mb-3 text-primary"></i>
+                            <h5>Choose a CSV or Excel file</h5>
+                            <p class="text-muted">Supported formats: .csv, .xlsx, .xls</p>
+                            <div class="d-flex justify-content-center">
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" id="file-input" accept=".csv, .xlsx, .xls">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-upload me-2"></i>Upload File
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="upload-status"></div>
+            
+            <div id="data-info"></div>
+            
+            <div id="data-controls" class="text-center mt-4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100 analysis-card">
+            <div class="card-body text-center">
+                <i class="fas fa-chart-pie fa-3x text-primary mb-3"></i>
+                <h3>Data Visualization</h3>
+                <p>Create interactive charts and graphs to visualize your data patterns and trends</p>
+                <a href="/visualization" class="btn btn-outline-primary">Visualize Data</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100 analysis-card">
+            <div class="card-body text-center">
+                <i class="fas fa-calculator fa-3x text-info mb-3"></i>
+                <h3>Data Analysis</h3>
+                <p>Generate statistical summaries, correlation matrices, and other analytical insights</p>
+                <a href="/analysis" class="btn btn-outline-info">Analyze Data</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100 analysis-card">
+            <div class="card-body text-center">
+                <i class="fas fa-file-export fa-3x text-success mb-3"></i>
+                <h3>Export Results</h3>
+                <p>Download your analysis results and processed data in various formats</p>
+                <div class="btn-group">
+                    <button class="btn btn-outline-success export-btn" data-format="csv">CSV</button>
+                    <button class="btn btn-outline-success export-btn" data-format="excel">Excel</button>
+                    <button class="btn btn-outline-success export-btn" data-format="json">JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Features</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-file-upload text-primary me-2"></i>
+                                Upload CSV and Excel files for analysis
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-chart-bar text-primary me-2"></i>
+                                Create multiple chart types (bar, line, pie, scatter)
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-table text-primary me-2"></i>
+                                View and filter tabular data
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-calculator text-primary me-2"></i>
+                                Generate statistical summaries
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-project-diagram text-primary me-2"></i>
+                                Visualize correlation matrices
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-file-export text-primary me-2"></i>
+                                Export data in multiple formats
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0">Getting Started</h3>
+            </div>
+            <div class="card-body">
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Upload your dataset</div>
+                            Choose a CSV or Excel file containing your data. The file should have headers in the first row.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Explore your data</div>
+                            After upload, you'll see basic information about your dataset including the number of rows and columns.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Visualize your data</div>
+                            Navigate to the Visualization page to create charts and graphs. Select columns, chart types, and apply filters as needed.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Analyze your data</div>
+                            Go to the Analysis page to view statistical summaries, missing value information, and correlation matrices.
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">Export your results</div>
+                            Download your data or analysis results in CSV, Excel, or JSON formats using the export buttons.
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

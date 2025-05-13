@@ -1,0 +1,128 @@
+/* Custom styles for the data science web application */
+
+/* Body styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content container */
+.main-container {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+/* Upload section */
+.upload-section {
+    background-color: var(--bs-dark-bg-subtle);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.file-upload-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.file-upload-wrapper .card {
+    border: 2px dashed var(--bs-border-color);
+    background-color: var(--bs-body-bg);
+    transition: all 0.3s ease;
+}
+
+.file-upload-wrapper:hover .card {
+    border-color: var(--bs-primary);
+}
+
+/* Data visualization section */
+.visualization-container {
+    min-height: 400px;
+    margin: 2rem 0;
+}
+
+.chart-container {
+    min-height: 400px;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Analysis section */
+.analysis-card {
+    margin-bottom: 2rem;
+    transition: transform 0.2s;
+}
+
+.analysis-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Table styles */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.correlation-table td {
+    text-align: center;
+}
+
+/* Filter row */
+.filter-row {
+    background-color: var(--bs-tertiary-bg);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chart-controls {
+        flex-direction: column;
+    }
+    
+    .chart-control-item {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Footer styles */
+footer {
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+/* Custom utility classes */
+.text-small {
+    font-size: 0.875rem;
+}
+
+.text-muted-light {
+    color: var(--bs-secondary-color);
+}
+
+/* Loading styles */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+/* Custom alerts */
+#alert-container {
+    z-index: 1050;
+}
+
+/* Column selector */
+select[multiple] {
+    overflow-y: auto;
+}
+
+/* Export buttons */
+.export-btn {
+    margin-right: 0.5rem;
+}
